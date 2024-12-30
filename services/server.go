@@ -15,7 +15,7 @@ func ProcessRequest(next http.HandlerFunc) http.Handler {
 		if r.Method != http.MethodPost {
 			w.WriteHeader(http.StatusInternalServerError)
 			json.NewEncoder(w).Encode(utils.Response{
-				Error: "Internal server error",
+				Error: "Internal server error(wrong request method\nShould be POST method",
 			})
 	
 			return
@@ -51,5 +51,6 @@ func StartServer() {
 
 	mux.Handle(url, ProcessRequest(calculateExpression))
 
+	fmt.Println("Listening on port: 8080.....")
 	http.ListenAndServe(":8080", mux)
 }
