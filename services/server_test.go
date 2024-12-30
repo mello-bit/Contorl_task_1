@@ -30,10 +30,28 @@ func TestProcessRequest(t *testing.T) {
 			StatusCode: http.StatusUnprocessableEntity,
 		},
 		{
-			Method: http.MethodGet,
+			Method: http.MethodPost,
 			Name: "Divide",
 			Expression: strings.NewReader(`{"expression": "2/33"}`),
 			StatusCode: http.StatusOK,
+		},
+		{
+			Method: http.MethodPost,
+			Name: "Multiply",
+			Expression: strings.NewReader(`{"expression": "2 * 33"}`),
+			StatusCode: http.StatusOK,
+		},
+		{
+			Method: http.MethodPost,
+			Name: "Long expression",
+			Expression: strings.NewReader(`{"expression": "(3 + 5 * 8) - 9 * 6 + 22 - 3"}`),
+			StatusCode: http.StatusOK,
+		},
+		{
+			Method: http.MethodPost,
+			Name: "Long expression with division by zero",
+			Expression: strings.NewReader(`{"expression": "(3 + 5 * 8) - 9 * 6 / (22 + 3 - 4 - 21)"}`),
+			StatusCode: http.StatusUnprocessableEntity,
 		},
 	}
 	
